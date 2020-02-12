@@ -16,12 +16,51 @@ object Mbti extends App {
       implicitly[Opposite[A]].opp(x)
   }
 
+  println
+  println("When the last three letters are stable, X$$$, the pair will use the same pair of tools, just in different order")
   for {
     b <- B
     c <- C
     d <- D
     a <- A
   } {
+    printAnalysis(a, b, c, d)
+  }
+
+  println
+  println("When second letter is ambiguous, $X$$, it just controls which leads for that part of the sandwich")
+  for {
+    a <- A
+    c <- C
+    d <- D
+    b <- B
+  } {
+    printAnalysis(a, b, c, d)
+  }
+
+  println
+  println("Similarly, When third letter is ambiguous, $$X$, it just controls which leads for that part of the sandwich")
+  for {
+    a <- A
+    b <- B
+    d <- D
+    c <- C
+  } {
+    printAnalysis(a, b, c, d)
+  }
+
+  println
+  println("When the fourth letter is ambiguous, $$$X, the order and extroversion of the pair will be flipped")
+  for {
+    a <- A
+    b <- B
+    c <- C
+    d <- D
+  } {
+    printAnalysis(a, b, c, d)
+  }
+
+  def printAnalysis(a: ExtrovertIntrovert, b: SensingIntuition, c: ThinkingFeeling, d: JudgingPerceiving) = {
     print(a.s + b.s + c.s + d.s)
     print(": ")
 
@@ -33,13 +72,13 @@ object Mbti extends App {
     // STEP 2b: introverts will place their judgement as the "meat" _JJ_ or _PP_
     // STEP 3: fill in your judgement with TF and your perceiving with SN, starting with your preferred letter
     val functionsFour: List[ExtrovertIntrovert => CognitiveFunction] =
-      (a, d) match {
-        case (Extrovert, Judging) | (Introvert, Perceiving) =>
-          List(JudgingFunction(c, _), PerceivingFunction(b, _), PerceivingFunction(b.opp, _), JudgingFunction(c.opp, _))
+    (a, d) match {
+      case (Extrovert, Judging) | (Introvert, Perceiving) =>
+        List(JudgingFunction(c, _), PerceivingFunction(b, _), PerceivingFunction(b.opp, _), JudgingFunction(c.opp, _))
 
-        case (Extrovert, Perceiving) | (Introvert, Judging) =>
-          List(PerceivingFunction(b, _), JudgingFunction(c, _), JudgingFunction(c.opp, _), PerceivingFunction(b.opp, _))
-      }
+      case (Extrovert, Perceiving) | (Introvert, Judging) =>
+        List(PerceivingFunction(b, _), JudgingFunction(c, _), JudgingFunction(c.opp, _), PerceivingFunction(b.opp, _))
+    }
 
     val cognitiveFunctions =
       for (i <- 0 until 4) yield {
@@ -52,6 +91,7 @@ object Mbti extends App {
         .mkString(" - ")
     }
   }
+
 
   def opposite(x: ExtrovertIntrovert) =
     x match {
