@@ -17,7 +17,7 @@ object Mbti extends App {
   }
 
   println
-  println("When the last three letters are stable, X$$$, the pair will use the same pair of tools, just in different order")
+  println("When the last three letters are stable, X$$$, the two types will use the same pair of cognitive functions, just in different order")
   for {
     b <- B
     c <- C
@@ -50,7 +50,7 @@ object Mbti extends App {
   }
 
   println
-  println("When the fourth letter is ambiguous, $$$X, the order and extroversion of the pair will be flipped")
+  println("When the fourth letter is ambiguous, $$$X, the order and extroversion of the pair of cognitive functions will be flipped")
   for {
     a <- A
     b <- B
@@ -60,7 +60,7 @@ object Mbti extends App {
     printAnalysis(a, b, c, d)
   }
 
-  def printAnalysis(a: ExtrovertIntrovert, b: SensingIntuition, c: ThinkingFeeling, d: JudgingPerceiving) = {
+  def printAnalysis(a: ExtrovertIntrovert, b: SensingIntuition, c: ThinkingFeeling, d: JudgingPerceiving): Unit = {
     print(a.s + b.s + c.s + d.s)
     print(": ")
 
